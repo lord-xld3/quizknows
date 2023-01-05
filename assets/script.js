@@ -7,20 +7,18 @@ const buttonSubmit = document.getElementById("submit")
 const arrScreen = document.getElementsByTagName("div") // Array of "screens" that can be shown to user
 const questionH1 = document.getElementById("questionText")
 const winH1 = document.getElementById("winText")
+const timerDisplay = document.getElementById("timer")
+const lostDisplay = document.getElementById("lostText")
 const arrQuestions = ["What can be prefixed to coerce a variable into a number?","What is the result of true + 4?","When arrays contain arrays, they are sometimes called _______."]
 const arrCorrectAnswers = ["+","5","Multi-dimensional"]
-const arrWrongAnswers = ["#",".toNumber()","0.","true4","4","NaN","Containers","Psuedo-Arrays","Array-tarded"]
+var arrWrongAnswers = ["#",".toNumber()","0.","true4","4","NaN","Containers","Psuedo-Arrays","Array-tarded"]
 var lastScreen = 0
 //#endregion
 
 //#region Interaction
 buttonStart.addEventListener("click",startQuiz)
 buttonScores.addEventListener("click",showScores)
-for (i=0; i<arrButtonToStart.length; i++){ // Return to start page listeners
-    arrButtonToStart[i].addEventListener("click", function returnToStart(){
-        arrScreen[lastScreen].style="display: none;"
-        arrScreen[0].style="display: flex;"
-})}
+for (i=0; i<arrButtonToStart.length; i++){arrButtonToStart[i].addEventListener("click", returnToStart)}
 //#endregion
 
 //#region Init
@@ -30,13 +28,28 @@ arrScreen[2].style="display: none;"
 arrScreen[3].style="display: none;"
 //#endregion
 
+function returnToStart(){
+    arrScreen[lastScreen].style="display: none;"
+    arrScreen[0].style="display: flex;"
+    clearInterval(interval)
+}
+
 function startQuiz(){
-    lastScreen = 2
+    lastScreen = 2; arrWrongAnswers = ["#",".toNumber()","0.","true4","4","NaN","Containers","Psuedo-Arrays","Array-tarded"]
     arrScreen[0].style="display: none;"
     arrScreen[2].style="display: flex;"
-    //start timer
+    startTime=60
+    timerDisplay.textContent="Time:" +  startTime
+    interval = setInterval(myTimer, 1000)
     showPrompt(0)
-    
+}
+
+function myTimer(){
+    if ((startTime--)<1){
+        lostDisplay.textContent="Ran out of time!"
+        returnToStart()
+    }
+    timerDisplay.textContent="Time:" +  startTime
 }
 
 function showPrompt(i){
@@ -53,11 +66,9 @@ function showPrompt(i){
             else {
                 let buttonGen = document.createElement("button")
                 buttonGen.textContent=arrWrongAnswers.splice(Math.floor(Math.random()*arrWrongAnswers.length), 1)
-                buttonGen.addEventListener("click",function badAnswer(){
-                timer-5})
+                buttonGen.addEventListener("click",function badAnswer(){startTime=startTime-4; myTimer()})
                 questionH1.appendChild(buttonGen)
             }
-            
         }
         return
     }
@@ -65,10 +76,12 @@ function showPrompt(i){
 }
 
 function winScreen(){
+    lostDisplay.textContent=""
     arrScreen[2].style="display: none;"
     arrScreen[3].style="display: flex;"
     lastScreen = 3
     buttonSubmit.addEventListener("click",submitScore)
+    winH1.textContent="Score:" + startTime
 }
 
 function showScores(){
