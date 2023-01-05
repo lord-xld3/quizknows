@@ -58,6 +58,9 @@ WrongAnswer?=>timer-(y)
 
 ELSE =>prompts(i++)=>generateAnswersList
 
+# ???
+
+We can go further in depth like describing the layout of the GUI, or think more about the structure of the program like where constants, globals, and functions will go. In this case, the layout isn't important and the structure is loosely organized with our mockup image and declarations of operation above.
 
 
 
