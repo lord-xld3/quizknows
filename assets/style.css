@@ -1,0 +1,22 @@
+:root{
+    --mainbg: #151820, #202729;
+    --lightbg: #1a1725, #202729;
+    --maincolor: rgb(255, 249, 244);
+  }
+
+html{
+    background: linear-gradient(90deg, var(--mainbg));
+    background-repeat:repeat;
+    color: var(--maincolor);
+  }
+
+h1{
+    background: linear-gradient(270deg, var(--lightbg));
+    width: fit-content;
+    padding: 2vh;
+    border-style: double;
+}
+
+body div{
+    display: none;
+}
