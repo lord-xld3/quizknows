@@ -87,6 +87,7 @@ function showPrompt(i){
         return
     }
     // Win!
+    clearInterval(interval)
     lostDisplay.textContent=""
     arrScreen[2].style="display: none;"
     arrScreen[3].style="display: flex;"
