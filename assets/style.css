@@ -1,6 +1,7 @@
 :root{
     --mainbg: #151820, #202729;
     --lightbg: #1a1725, #202729;
+    --buttonbg: #4b0e45, #1d3b44;
     --maincolor: rgb(255, 249, 244);
   }
 
@@ -11,12 +12,23 @@ html{
   }
 
 h1{
-    background: linear-gradient(270deg, var(--lightbg));
+    border-color: #1d3b44;
+    border-style: ridge;
+    background: linear-gradient(45deg, var(--lightbg));
     width: fit-content;
     padding: 2vh;
-    border-style: double;
 }
 
 body div{
     display: none;
+    align-items: center;
+}
+
+button{
+    border-color: #4b0e45;
+    font-size: 20px;
+    padding: 2vh;
+    margin-inline-start: 2vh;
+    color: var(--maincolor);
+    background: linear-gradient(45deg, var(--buttonbg));
 }
