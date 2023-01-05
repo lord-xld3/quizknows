@@ -19,7 +19,7 @@ h1{
     padding: 2vh;
 }
 
-body div{
+div{
     display: none;
     align-items: center;
 }
