@@ -2,7 +2,7 @@
  A quiz for JavaScript
 
 We begin by solving the problem before coding anything
-![Solution](guessinggame.png)
+![Solution](./assets/images/guessinggame.png)
 
 Now that we understand the flow, let's solve some of the smaller problems
 
