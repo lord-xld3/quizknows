@@ -7,6 +7,8 @@ const buttonSubmit = document.getElementById("submit")
 const arrScreen = document.getElementsByTagName("div") // Array of "screens" that can be shown to user
 const questionH1 = document.getElementById("questionText")
 const winH1 = document.getElementById("winText")
+const initialsText = document.getElementById("textarea")
+const highText = document.getElementById("highScores")
 const timerDisplay = document.getElementById("timer")
 const lostDisplay = document.getElementById("lostText")
 const arrQuestions = ["What can be prefixed to coerce a variable into a number?","What is the result of true + 4?","When arrays contain arrays, they are sometimes called _______."]
@@ -87,15 +89,28 @@ function winScreen(){
 function showScores(){
     lastScreen = 1
     buttonClear.addEventListener("click",clearScores)
+    let dataObj = localStorage.getItem("data")
+    highText.textContent=""
+    if (dataObj){
+        parseData = JSON.parse(dataObj)
+        highText.textContent="User:" + parseData.user + " Score:" + parseData.score
+    }
     arrScreen[0].style="display: none;"
     arrScreen[1].style="display: flex;"
 }
 
 function clearScores(){
-    //TODO
+    localStorage.removeItem("data")
+    highText.textContent="Cleared!"
 }
 
 function submitScore(){
+    submitData = {
+        user: initialsText.value,
+        score: startTime
+    }
+    json = JSON.stringify(submitData)
+    localStorage.setItem("data", json)
     arrScreen[3].style="display: none;"
-    arrScreen[1].style="display: flex;"
+    showScores()
 }
