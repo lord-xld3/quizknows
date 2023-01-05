@@ -34,29 +34,46 @@ function startQuiz(){
     lastScreen = 2
     arrScreen[0].style="display: none;"
     arrScreen[2].style="display: flex;"
-    let correctButton = questionH1.appendChild(document.createElement("button"))
     //start timer
-    for (i=0; i<arrQuestions.length; i++){
-        questionH1.textContent=arrQuestions[i] // Display question
-        correctINT = Math.floor(Math.random()*4) // Correct answer in random position
-        for (j=0; j<3; j++){ // Generate buttons
-            if (j==correctINT) {
-                correctButton.textContent=arrCorrectAnswers[i]
-                correctButton.addEventListener("click",i++)
-            }
-        }
-    }
+    showPrompt(0)
     
 }
 
+function showPrompt(i){
+    if (i<arrQuestions.length){
+        questionH1.textContent=arrQuestions[i] // Display question
+        correctINT = Math.floor(Math.random()*4) // Correct answer in random position
+        for (j=0; j<4; j++){ // Generate buttons
+            if (j==correctINT) {
+                let buttonGen = document.createElement("button")
+                buttonGen.textContent=arrCorrectAnswers[i]
+                buttonGen.addEventListener("click",function nextPrompt(){i++; showPrompt(i)})
+                questionH1.appendChild(buttonGen)
+            }
+            else {
+                let buttonGen = document.createElement("button")
+                buttonGen.textContent=arrWrongAnswers.splice(Math.floor(Math.random()*arrWrongAnswers.length), 1)
+                buttonGen.addEventListener("click",function badAnswer(){
+                timer-5})
+                questionH1.appendChild(buttonGen)
+            }
+            
+        }
+        return
+    }
+    winScreen()
+}
+
 function winScreen(){
+    arrScreen[2].style="display: none;"
+    arrScreen[3].style="display: flex;"
     lastScreen = 3
-    buttonSubmit.addEventListener("click",submitScore())
+    buttonSubmit.addEventListener("click",submitScore)
 }
 
 function showScores(){
     lastScreen = 1
-    buttonClear.addEventListener("click",clearScores())
+    buttonClear.addEventListener("click",clearScores)
     arrScreen[0].style="display: none;"
     arrScreen[1].style="display: flex;"
 }
