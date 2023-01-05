@@ -5,10 +5,11 @@ const buttonScores = document.getElementById("scores")
 const buttonClear = document.getElementById("clear")
 const buttonSubmit = document.getElementById("submit")
 const arrScreen = document.getElementsByTagName("div") // Array of "screens" that can be shown to user
+const questionH1 = document.getElementById("questionText")
+const winH1 = document.getElementById("winText")
 const arrQuestions = ["What can be prefixed to coerce a variable into a number?","What is the result of true + 4?","When arrays contain arrays, they are sometimes called _______."]
 const arrCorrectAnswers = ["+","5","Multi-dimensional"]
 const arrWrongAnswers = ["#",".toNumber()","0.","true4","4","NaN","Containers","Psuedo-Arrays","Array-tarded"]
-const arrPrompts = [arrQuestions,arrCorrectAnswers]
 var lastScreen = 0
 //#endregion
 
@@ -33,6 +34,19 @@ function startQuiz(){
     lastScreen = 2
     arrScreen[0].style="display: none;"
     arrScreen[2].style="display: flex;"
+    let correctButton = questionH1.appendChild(document.createElement("button"))
+    //start timer
+    for (i=0; i<arrQuestions.length; i++){
+        questionH1.textContent=arrQuestions[i] // Display question
+        correctINT = Math.floor(Math.random()*4) // Correct answer in random position
+        for (j=0; j<3; j++){ // Generate buttons
+            if (j==correctINT) {
+                correctButton.textContent=arrCorrectAnswers[i]
+                correctButton.addEventListener("click",i++)
+            }
+        }
+    }
+    
 }
 
 function winScreen(){
