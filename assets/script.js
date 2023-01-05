@@ -7,10 +7,11 @@ const buttonSubmit = document.getElementById("submit")
 const arrScreen = document.getElementsByTagName("div") // Array of "screens" that can be shown to user
 const questionH1 = document.getElementById("questionText")
 const winH1 = document.getElementById("winText")
-const initialsText = document.getElementById("textarea")
+const textarea = document.getElementById("textarea")
 const highText = document.getElementById("highScores")
 const timerDisplay = document.getElementById("timer")
 const lostDisplay = document.getElementById("lostText")
+const scoreHeader = document.getElementById("scoreContainer")
 const arrQuestions = ["What can be prefixed to coerce a variable into a number?","What is the result of true + 4?","When arrays contain arrays, they are sometimes called _______."]
 const arrCorrectAnswers = ["+","5","Multi-dimensional"]
 var arrWrongAnswers = ["#",".toNumber()","0.","true4","4","NaN","Containers","Psuedo-Arrays","Array-tarded"]
@@ -20,7 +21,18 @@ var lastScreen = 0
 //#region Interaction
 buttonStart.addEventListener("click",startQuiz)
 buttonScores.addEventListener("click",showScores)
-for (i=0; i<arrButtonToStart.length; i++){arrButtonToStart[i].addEventListener("click", returnToStart)}
+buttonSubmit.addEventListener("click",submitScore)
+buttonClear.addEventListener("click",function clearScores(){
+    localStorage.removeItem("data")
+    showScores()
+})
+// Return from scores
+arrButtonToStart[0].addEventListener("click", returnToStart)
+// Quit during quiz
+arrButtonToStart[1].addEventListener("click", function quitBtn(){clearInterval(interval); returnToStart()})
+// Return from win
+arrButtonToStart[2].addEventListener("click", returnToStart)
+
 //#endregion
 
 //#region Init
@@ -33,7 +45,6 @@ arrScreen[3].style="display: none;"
 function returnToStart(){
     arrScreen[lastScreen].style="display: none;"
     arrScreen[0].style="display: flex;"
-    clearInterval(interval)
 }
 
 function startQuiz(){
@@ -41,14 +52,15 @@ function startQuiz(){
     arrScreen[0].style="display: none;"
     arrScreen[2].style="display: flex;"
     startTime=60
-    timerDisplay.textContent="Time:" +  startTime
     interval = setInterval(myTimer, 1000)
+    timerDisplay.textContent="Time:" +  startTime
     showPrompt(0)
 }
 
 function myTimer(){
     if ((startTime--)<1){
         lostDisplay.textContent="Ran out of time!"
+        clearInterval(interval)
         returnToStart()
     }
     timerDisplay.textContent="Time:" +  startTime
@@ -74,41 +86,49 @@ function showPrompt(i){
         }
         return
     }
-    winScreen()
-}
-
-function winScreen(){
+    // Win!
     lostDisplay.textContent=""
     arrScreen[2].style="display: none;"
     arrScreen[3].style="display: flex;"
     lastScreen = 3
-    buttonSubmit.addEventListener("click",submitScore)
     winH1.textContent="Score:" + startTime
 }
 
 function showScores(){
     lastScreen = 1
-    buttonClear.addEventListener("click",clearScores)
-    let dataObj = localStorage.getItem("data")
-    highText.textContent=""
-    if (dataObj){
-        parseData = JSON.parse(dataObj)
-        highText.textContent="User:" + parseData.user + " Score:" + parseData.score
+    while (scoreHeader.childElementCount>1){
+        scoreHeader.removeChild(scoreHeader.lastChild)
     }
+    let dataObj = localStorage.getItem("data")
+    if (dataObj){
+        dataObj = JSON.parse(dataObj)
+        for (i=0; i<dataObj.user.length || i<dataObj.score.length; i++){
+            spanContainer = document.createElement("span")
+            scoreHeader.appendChild(spanContainer)
+            allSpans = document.getElementsByTagName("span")
+            spanData = document.createElement("li")
+            spanData.textContent=dataObj.user[i]
+            allSpans[i+2].appendChild(spanData)
+            spanData = document.createElement("li")
+            spanData.textContent=dataObj.score[i]
+            allSpans[i+2].appendChild(spanData)
+        }
+    }
+    highText.textContent=""
     arrScreen[0].style="display: none;"
     arrScreen[1].style="display: flex;"
 }
 
-function clearScores(){
-    localStorage.removeItem("data")
-    highText.textContent="Cleared!"
-}
 
 function submitScore(){
-    submitData = {
-        user: initialsText.value,
-        score: startTime
+    let dataObj = localStorage.getItem("data")
+    if (dataObj){
+        submitData = JSON.parse(dataObj)
+    }else{
+        submitData = {user:[],score: []}
     }
+    submitData.user.push(textarea.value)
+    submitData.score.push(startTime)
     json = JSON.stringify(submitData)
     localStorage.setItem("data", json)
     arrScreen[3].style="display: none;"

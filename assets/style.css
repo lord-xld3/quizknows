@@ -37,6 +37,10 @@ button{
     background: linear-gradient(45deg, var(--buttonbg));
 }
 
+button:hover{
+    background: #4b0e45;
+}
+
 textarea{
     border-color: #1d3b44;
     border-style: ridge;
@@ -44,4 +48,29 @@ textarea{
     width: fit-content;
     padding: 2vh;
     margin-inline-start: 2vh;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    width: 0px;
+    border: 0.5vh ridge;
+    background-color: #1d3b44;
+    flex-grow: 1;
+    align-items: center;
+    padding: 2vh;
+    margin: 1vh;
+    list-style: none;
+}
+
+span{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    flex-grow: 1;
+    margin: 1vh;
+}
+
+#scoreContainer{
+    display: block;
 }
