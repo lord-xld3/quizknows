@@ -10,29 +10,35 @@ html{
     background-repeat:repeat;
     color: var(--maincolor);
   }
+body div{
+    margin: 2vh;
+    display: none;
+    flex-flow: column nowrap;
+}
+
+
 
 h1{
     border-color: #1d3b44;
     border-style: ridge;
     background: linear-gradient(45deg, var(--lightbg));
-    width: fit-content;
+    width: auto;
+    display: flex;
+    flex-direction: row wrap;
+    flex: 1 1 0px;
     padding: 2vh;
+    margin: 2vh;
 }
 
 h2{
     margin-inline-start: 2vh;
 }
 
-div{
-    display: none;
-    align-items: center;
-}
-
 button{
     border-color: #4b0e45;
-    font-size: 20px;
+    font-size: 24px;
     padding: 2vh;
-    margin-inline-start: 2vh;
+    margin: 2vh;
     color: var(--maincolor);
     background: linear-gradient(45deg, var(--buttonbg));
 }
@@ -44,19 +50,21 @@ button:hover{
 textarea{
     border-color: #1d3b44;
     border-style: ridge;
+    color: var(--maincolor);
     background: linear-gradient(45deg, var(--lightbg));
-    width: fit-content;
+    width: auto;
     padding: 2vh;
-    margin-inline-start: 2vh;
+    margin: 2vh;
 }
 
 li {
+    font-size: 24px;
     display: flex;
-    flex-direction: column;
-    width: 0px;
+    flex-flow: column nowrap;
+    flex: 1 1 0px;
+/* ^^^ grow all flexboxes evenly*/
     border: 0.5vh ridge;
     background-color: #1d3b44;
-    flex-grow: 1;
     align-items: center;
     padding: 2vh;
     margin: 1vh;
@@ -65,12 +73,38 @@ li {
 
 span{
     display: flex;
-    flex-direction: row;
-    flex-flow: wrap;
-    flex-grow: 1;
+    flex-flow: row wrap;
+    flex: 1 1 0px;
     margin: 1vh;
+    align-items: baseline;
 }
 
 #scoreContainer{
     display: block;
+}
+
+#screenPrompt{
+    align-items: baseline;
+}
+
+#promptQuit{
+    width: auto;
+    margin-top: 4vh;
+    background: rgb(112, 30, 0);
+}
+
+#promptSpan{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: stretch;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+#promptSpan button{
+    display: block;
+    flex: 1 1 0px;
+    padding: 2vh;
+    margin: 2vh;
 }

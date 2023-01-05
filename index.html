@@ -11,17 +11,17 @@
 </head>
 
 <body>
-    <div class="screenStart">
+    <div id="screenStart">
         <h1>Yet Another Javascript Quiz</h1>
         <h2 id="lostText"></h2>
         <button id="start">Start</button>
         <button id="scores">Scores</button>
     </div>
-    <div class="screenScores">
+    <div id="screenScores">
         <h1>High Scores</h1>
         <h2 id="highScores"></h2>
         <span id="scoreContainer">
-            <span id="scoreHeader">
+            <span>
                 <li>User</li>
                 <li>Score</li>
             </span>
@@ -29,16 +29,30 @@
         <button class="toStart">Back</button>
         <button id="clear">Clear Scores</button>
     </div>
-    <div class="screenPrompt">
-        <h1 id="questionText"></h1>
-        <h2 id="timer"></h2>
-        <button class="toStart">Quit</button>
+    <div id="screenPrompt">
+        
+        <span>
+            <h2 id="timer"></h2>
+            <button id="promptQuit" class="toStart">Quit</button>
+        </span>
+        
+        <span>
+            <h1 id="questionText"></h1>
+        </span>
+        
+        <span id="promptSpan">
+        </span>
     </div>
-    <div class="screenWin">
+    <div id="screenWin">
         <h1 id="winText"></h1>
-        <button class="toStart">Quit</button>
-        <textarea id="textarea" placeholder="Initials:"></textarea>
+        <textarea 
+        id="textarea" 
+        placeholder="Initials:"
+        maxlength="3"
+        minlength="1"
+        ></textarea>
         <button id="submit">Submit</button>
+        <button class="toStart">Quit</button>
     </div>
     <script src="./assets/script.js"></script>
 </body>
