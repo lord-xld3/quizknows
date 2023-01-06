@@ -108,11 +108,10 @@ function showScores(){
             spanData=document.createElement("li")
             spanData.textContent=dataObj.user[i]
             allSpans[i+2].appendChild(spanData)
+            // i+2 because there's already 2 spans above this, divs are in use too
             spanData=document.createElement("li")
             spanData.textContent=dataObj.score[i]
-            allSpans[i+2].appendChild(spanData)
-        }
-    }
+            allSpans[i+2].appendChild(spanData)}}
     highText.textContent="" // If we said "ran out of time" we'll clear it here
     arrScreen[0].style="display: none;"
     arrScreen[1].style="display: flex;"
@@ -120,16 +119,19 @@ function showScores(){
 
 
 function submitScore(){
-    //Error handling
+//Error handling
     if (textarea.value=="") return alert("Enter your initials to submit")
     let dataObj=localStorage.getItem("data")
-    if (dataObj){
-        submitData=JSON.parse(dataObj)
-    }else{
-        submitData={user:[],score: []}
-    }
-    submitData.user.push(textarea.value)
-    submitData.score.push(startTime)
+// Check existing data
+    if (dataObj) submitData=JSON.parse(dataObj)
+    else submitData={user:[],score:[]}
+// Place the score in the correct spot
+    for (i=0; i<=submitData.score.length; i++){
+        if (startTime>submitData.score[i] || i==submitData.score.length){
+            submitData.user.splice((i),0,textarea.value)
+            submitData.score.splice((i),0,startTime)
+            break}}
+// Store object and return
     json=JSON.stringify(submitData)
     localStorage.setItem("data", json)
     arrScreen[3].style="display: none;"
