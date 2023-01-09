@@ -6,6 +6,8 @@
   }
 
 html{
+    /* cheeky 90deg gradient hack 
+    so it repeats nicely when zoomed way out*/
     background: linear-gradient(90deg, var(--mainbg));
     background-repeat:repeat;
     color: var(--maincolor);
@@ -62,7 +64,9 @@ li {
     display: flex;
     flex-flow: column nowrap;
     flex: 1 1 0px;
-/* ^^^ grow all flexboxes evenly*/
+/* ^^^ grow all flexboxes evenly. 
+Button content size is calculated unless we specify it to be 0 here. 
+I hate this.*/
     border: 0.5vh ridge;
     background-color: #1d3b44;
     align-items: center;

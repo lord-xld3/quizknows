@@ -1,5 +1,14 @@
-# quizknows
- A quiz for JavaScript
+## quizknows
+A (tiny) quiz for JavaScript ===> [Here](https://lord-xld3.github.io/quizknows/)
+
+Score is saved locally
+
+Answers are randomized, which doesn't really make sense but its kinda cool I guess
+
+# It looks like this
+![WhatItDoLookLikeTho](./assets/images/itlookslikethis.PNG)
+
+# In the beginning...
 
 We begin by solving the problem before coding anything
 ![Solution](./assets/images/guessinggame.png)
@@ -62,6 +71,12 @@ ELSE =>prompts(i++)=>generateAnswersList
 
 We can go further in depth like describing the layout of the GUI, or think more about the structure of the program like where constants, globals, and functions will go. In this case, the layout isn't important and the structure is loosely organized with our mockup image and declarations of operation above.
 
+# In the end...
 
+There's many ways to skin a cat, and we're randomly splicing answers from an array until its empty, so we have to re-init the array every time we start the quiz.
+
+Sorting the score before storing it was suprisingly easy by splicing it into local storage.
+
+A few times I had to stop and think, "what do I actually need this data to do?" which is why we switched from a 2D array to 3 single arrays. We don't need a "prompt" array since we're already iterating thru a for loop, and two arrays are linked together by using the same index in the for loop.
 
 
